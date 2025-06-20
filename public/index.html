@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kodepos JSON Processor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Kodepos JSON Processor</h1>
+
+        <nav class="main-nav">
+            <button class="nav-btn active" data-target="page-new">Buat File Baru</button>
+            <button class="nav-btn" data-target="page-append">Tambah ke File</button>
+        </nav>
+
+        <!-- Page: Buat File Baru -->
+        <div id="page-new" class="page active">
+            <div class="card">
+                <nav class="sub-nav">
+                    <button class="sub-nav-btn active" data-target="new-from-file">Dari File</button>
+                    <button class="sub-nav-btn" data-target="new-from-manual">Input Manual</button>
+                </nav>
+
+                <!-- Sub-Page: New From File -->
+                <div id="new-from-file" class="sub-page active">
+                    <h2>1. Proses dari File JSON</h2>
+                    <p>Pilih file JSON dari komputer Anda untuk diproses. Hasilnya akan disimpan di folder <code>/output</code>.</p>
+                    <div class="form-group">
+                        <label for="process-file-input">Pilih File JSON</label>
+                        <input type="file" id="process-file-input" accept=".json">
+                    </div>
+                    <button id="process-btn">Proses File</button>
+                </div>
+
+                <!-- Sub-Page: New From Manual Input -->
+                <div id="new-from-manual" class="sub-page">
+                    <h2>2. Buat dari Input Manual</h2>
+                    <p>Tambahkan data kota dan kodepos secara manual. Setelah selesai, buat file output baru.</p>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="manual-city">Nama Kota</label>
+                            <input type="text" id="manual-city" placeholder="Contoh: Jakarta">
+                        </div>
+                        <div class="form-group">
+                            <label for="manual-postcodes">Kode Pos (pisahkan dengan , atau ;)</label>
+                            <textarea id="manual-postcodes" rows="3" placeholder="12345, 12346; 12347"></textarea>
+                        </div>
+                    </div>
+                    <button id="add-manual-data-btn">Tambah ke Daftar</button>
+
+                    <div class="separator">ATAU</div>
+
+                    <div class="form-group">
+                        <label for="manual-upload-file">Upload File JSON untuk Ditambahkan ke Daftar</label>
+                        <input type="file" id="manual-upload-file" accept=".json">
+                        <p class="form-hint">Pilih file dengan format array JSON untuk digabungkan ke daftar di bawah.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="manual-upload-txt">Upload File TXT (Format: kota kodepos, kodepos, ...)</label>
+                        <input type="file" id="manual-upload-txt" accept=".txt">
+                        <p class="form-hint">Contoh baris: <code>bandung 40300, 40301, 40302</code></p>
+                    </div>
+
+                    <div id="manual-data-list-container">
+                        <h3>Daftar Data untuk File Baru</h3>
+                        <ul id="manual-data-list">
+                            <!-- Data yang ditambahkan akan muncul di sini -->
+                        </ul>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="manual-output-filename">Nama File Output Baru</label>
+                        <input type="text" id="manual-output-filename" placeholder="Contoh: data_baru.json">
+                    </div>
+                    <button id="create-manual-file-btn">Buat File dari Input Manual</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page: Tambah ke File -->
+        <div id="page-append" class="page">
+            <div class="card">
+                <h2>Tambah Data ke File Output</h2>
+                <p>Tambahkan data baru ke file yang sudah ada di folder <code>/output</code>.</p>
+                <div class="form-group">
+                    <label for="append-targetfile">Nama File di Folder Output</label>
+                    <input type="text" id="append-targetfile" placeholder="Contoh: sample.json">
+                </div>
+                <div class="form-group">
+                    <label for="append-sourcefile">Path File Tambahan (Opsional)</label>
+                    <input type="text" id="append-sourcefile" placeholder="Contoh: tambahan.json">
+                </div>
+                <div class="form-group">
+                    <label for="append-jsondata">Data JSON Langsung (Opsional)</label>
+                    <textarea id="append-jsondata" rows="5" placeholder='Contoh: { "city": "KOTA BARU", "postal_code": "30001" }'></textarea>
+                </div>
+                <button id="append-btn">Tambah Data</button>
+            </div>
+        </div>
+
+        <div class="card result-card">
+            <div class="result-header">
+                <h2>Hasil</h2>
+                <a href="#" id="download-result-btn" class="download-btn hidden" download>Download Hasil</a>
+            </div>
+            <pre id="result-area">{ "message": "Hasil akan ditampilkan di sini..." }</pre>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
